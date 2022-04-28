@@ -14,105 +14,81 @@ export class VideoContainerComponent implements OnInit, OnDestroy {
   @Input() videos: VideoItem[] = [];
 
   currentVideoIndex: number = 0;
+  minVideoHeight: number = 500;
 
   @ViewChild(VideoDirective, { static: true }) videoHost!: VideoDirective;
-  interval: number | undefined;
+  
 
   ngOnInit(): void {
-    //   FIXME: настроить логику количества видео при первой загрузке
-    this.loadComponentById(0);
-    this.loadComponentById(1);
-    this.getVideo();
-    console.log(this.videos)
+   
+    this.primaryVideoLoading(this.minVideoHeight)
+
+    this.startGettingVideo()
     
   }
 
   ngOnDestroy() {
-    clearInterval(this.interval);
+    window.removeEventListener('scroll', this.onScrollToBottom)
   }
 
-  loadComponent() {
-    this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videos.length;
-    const videoItem = this.videos[this.currentVideoIndex];
-
-    const viewContainerRef = this.videoHost.viewContainerRef;
-    // viewContainerRef.clear();
-
-    const componentRef = viewContainerRef.createComponent<VideoComponentInterface>(
-      videoItem.component
-    );
-    // console.log('***', adItem.component);
-    componentRef.instance.data = videoItem.data;
-  }
-
-  loadComponentById(videoId: number) {
-    // this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videos.length;
+  
+  public loadVideoById(videoId: number) {
     const videoItem = this.videos[videoId];
 
     const viewContainerRef = this.videoHost.viewContainerRef;
-    // viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent<VideoComponentInterface>(
       videoItem.component
     );
-    // console.log('***', adItem.component);
+
     componentRef.instance.data = videoItem.data;
   }
 
-  getVideos() {
-    // this.interval = window.setInterval(() => {
-    //   this.loadComponent();
-    // }, 3000);
-    for (let video of this.videos) {
-        console.log(video)
-        this.loadComponent()
-    }
-    this.interval = window.setInterval(() => {
-        let currentPositionRelativBottom: number =  document.documentElement.getBoundingClientRect().bottom
-        console.log('currentPositionRelativBottom', currentPositionRelativBottom)
-        let currentHeight: number = document.documentElement.clientHeight
-        console.log('currentHeight=',currentHeight)
-        if (currentPositionRelativBottom < currentHeight + 50) {
-            console.log('we are at the bottom!')
-        }
-    }, 100000);
-  }
+  /**
+   * проверка, кончились ли видео для загрузки
+   * @returns {boolean} true, если видео закончились
+   */
+  public checkVideosFinished(): boolean {
 
-  public checkEnd(): boolean {
     if (this.currentVideoIndex >= (this.videos.length - 1)) {
-            console.log('пора удалять')
-            return true
-            
-        } else {
-            console.log('удалять еще рано')
-            return false
-        }
+      return true  
+    } else {
+      return false
+    }
   }
 
+  public primaryVideoLoading(itemMinHeight: number): void {
+    const currentHeight: number = document.documentElement.clientHeight
+    const needToLoad: number = (currentHeight / itemMinHeight) + 1
+
+    for (this.currentVideoIndex; this.currentVideoIndex < needToLoad; this.currentVideoIndex++) {
+
+      this.loadVideoById(this.currentVideoIndex)
+
+      console.log(this.currentVideoIndex)
+    }
+
+  }
+  
   public onScrollToBottom = () => {
 
-      let currentPositionRelativBottom: number = document.documentElement.getBoundingClientRect().bottom
-      let currentHeight: number = document.documentElement.clientHeight
+      const currentPositionRelativBottom: number = document.documentElement.getBoundingClientRect().bottom
+      const currentHeight: number = document.documentElement.clientHeight
 
       if (currentPositionRelativBottom < currentHeight + 50) {
 
-        console.log('we are at the bottom! Loading next video now')
-
-        this.loadComponentById(this.currentVideoIndex)
-
-        console.log(`loading: ${this.currentVideoIndex} video`)
+        this.loadVideoById(this.currentVideoIndex)
+        
+        if (this.checkVideosFinished()) {
+          window.removeEventListener('scroll', this.onScrollToBottom)
+        }
 
         this.currentVideoIndex++
 
-        if (this.checkEnd()) {
-            window.removeEventListener('scroll', this.onScrollToBottom)
-        }
-
-    } else {console.log('рано')}
+      } 
   }
 
-  public getVideo(): void {
-
+  public startGettingVideo(): void {
     window.addEventListener('scroll', this.onScrollToBottom)  
   }
 }

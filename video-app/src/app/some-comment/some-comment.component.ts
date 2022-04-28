@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { myComment } from '../domain/myComment';
 
 @Component({
   selector: 'app-some-comment',
@@ -7,8 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SomeCommentComponent implements OnInit {
   
-  @Input() data: any;
-  
+  @Input() data!: myComment;
+  // @Input() data: any;
+
   constructor() { }
 
   ngOnInit(): void {

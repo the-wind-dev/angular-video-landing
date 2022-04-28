@@ -18,11 +18,6 @@ import { CommentService } from "../comment.service";
         CommentContainerModule,
         
     ],
-    // providers: [
-    //     CommentService
-    // ]
-
 })
 
 export class SomeVideoModule {}
-// export class SomeVideoModule {}

@@ -74,29 +74,34 @@ export class CommentContainerComponent implements OnInit, ControlValueAccessor {
   }
   
   public onClickSendButton(): void {
-    console.log('send:')
-    console.log(this.textareaValue)
+    // можно поставить disable на кнопку
+    if (this.textareaValue === '') {
+      alert(`you can't leave an empty comment`)
+      return
+    }
 
     this.addComment(this.textareaValue)
 
     this.textareaValue = ''
+    //тут можно испооьзовать writeValue 
+    // this.writeValue('')
   }
-  // нужна проверка на путой комментарий, сейчас она не работает или её нет
+  
+  //но вообще этот метод не вызывается, потому что не пишем ничего отсюда в textarea
   public writeValue(comment: string): void {
     if (comment === null) {
         console.log('comment === null')
         return
     }
-
     this.textareaValue = comment
-    console.log(this.textareaValue)
   }
 
   public addComment(newComment: string): void {
+
     this.comments.push( new MyCommentItem(SomeCommentComponent, {
       text: newComment
     }))
-    console.log(this.comments)
+    
     this.loadCommentById(this.comments.length - 1)
   }
 

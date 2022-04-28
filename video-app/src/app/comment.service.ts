@@ -12,7 +12,7 @@ export class CommentService {
         text: 'text in comment 1'
         }),
       new MyCommentItem(SomeCommentComponent, {
-        text: 'text in comment 2'
+        text: 'text in comment 2 afkasjflk'
         }),
     ];
   }

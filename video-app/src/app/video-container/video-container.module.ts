@@ -1,5 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+
+import { SomeVideoModule } from "../some-video/some-video.module";
 import { VideoDirective } from "../video.directive";
 import { VideoContainerComponent } from "./video-container.component";
 
@@ -13,7 +15,8 @@ import { VideoContainerComponent } from "./video-container.component";
     ],
     imports: [
         CommonModule,
-        
+        // FormsModule
+        SomeVideoModule
     ]
 })
 

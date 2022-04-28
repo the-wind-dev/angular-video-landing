@@ -2,6 +2,8 @@ import { SomeVideoComponent } from "./some-video.component";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { CommentContainerModule } from "../comment-container/comment-container.module";
+import { CommentService } from "../comment.service";
 
 @NgModule({
     declarations: [
@@ -12,9 +14,15 @@ import { FormsModule } from "@angular/forms";
     ],
     imports: [
         CommonModule,
-        FormsModule
-    ]
+        FormsModule,
+        CommentContainerModule,
+        
+    ],
+    // providers: [
+    //     CommentService
+    // ]
 
 })
 
 export class SomeVideoModule {}
+// export class SomeVideoModule {}

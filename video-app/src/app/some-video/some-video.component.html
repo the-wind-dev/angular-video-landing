@@ -6,14 +6,29 @@
         [attr.src]="data.videoSrc"
         controls>
     </video>
+
     <div class="comment-container">
         <h4>comments:</h4>
-        <p *ngFor="let comment of data.comments">{{comment}}</p>
-<!-- надо бы в форму обернуть... -->
-        <textarea placeholder="leave a comment..."
+        <app-comment-container [comments]="comments"></app-comment-container>
+
+        <!-- надо бы в форму обернуть... -->
+        <!-- <textarea placeholder="leave a comment..."
                   [ngModel]="textareaValue"
-                  (ngModelChange)="onChangeTextareaValue($event)"></textarea>
+                  (ngModelChange)="onChangeTextareaValue($event)">
+        </textarea>
+
         <button class="button send-button"
-                (click)="onClickSendButton()">Send</button>
+                (click)="onClickSendButton()">
+        Send</button> -->
+
     </div>
+
+    <!-- <div class="comment-container-old"> -->
+        <!-- <h4>comments:</h4> -->
+        <!-- <p *ngFor="let comment of data.comments">{{comment}}</p> -->
+
+        
+    <!-- </div> -->
+
+    
 </div>

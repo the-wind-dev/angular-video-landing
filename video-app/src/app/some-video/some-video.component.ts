@@ -1,5 +1,7 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CommentService } from '../comment.service';
+import { MyCommentItem } from '../domain/myComment-item';
 import { VideoComponentInterface } from '../domain/video-component-interface.component';
 
 @Component({
@@ -17,13 +19,16 @@ import { VideoComponentInterface } from '../domain/video-component-interface.com
 export class SomeVideoComponent implements VideoComponentInterface, ControlValueAccessor, OnInit {
   @Input() data: any;
 
+  comments: MyCommentItem[] = []
+
   @Input() 
   public textareaValue: string = ''
 
-  constructor() { }
+  constructor(private commentService: CommentService) { }
 
   //вроде не нужен
   public ngOnInit(): void {
+    this.comments = this.commentService.getComments()
   }
 
   public onChange(comment: string): void {

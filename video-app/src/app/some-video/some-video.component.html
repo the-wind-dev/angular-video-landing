@@ -1,9 +1,19 @@
-<p>some-video works!</p>
-<div class="some-video">
-    <h4>{{data.name}}</h4>
-    <!-- link to the video: {{data.videoSrc}} -->
+<div class="video-instance">
+
+    <h3>{{data.name}}</h3>
+    
     <video 
         [attr.src]="data.videoSrc"
         controls>
     </video>
+    <div class="comment-container">
+        <h4>comments:</h4>
+        <p *ngFor="let comment of data.comments">{{comment}}</p>
+<!-- надо бы в форму обернуть... -->
+        <textarea placeholder="leave a comment..."
+                  [ngModel]="textareaValue"
+                  (ngModelChange)="onChangeTextareaValue($event)"></textarea>
+        <button class="button send-button"
+                (click)="onClickSendButton()">Send</button>
+    </div>
 </div>

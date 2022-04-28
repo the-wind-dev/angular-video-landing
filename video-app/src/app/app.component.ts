@@ -4,11 +4,7 @@ import { VideoService } from './video.service';
 
 @Component({
   selector: 'app-root',
-  template: `
-  <div>
-    <p>this is app-root</p>
-    <app-video-container [videos]="videos"></app-video-container>
-  </div>`,
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VideoItem } from './domain/video-item';
-import { VideoService } from './video.service';
+
 
 @Component({
   selector: 'app-root',
@@ -11,9 +11,8 @@ export class AppComponent implements OnInit{
   title = 'my-app';
   videos: VideoItem[] = []
 
-  constructor(private videoService: VideoService) {}
+  constructor() {}
 
   ngOnInit() {
-    this.videos = this.videoService.getVideos()
   }
 }

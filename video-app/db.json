@@ -1,0 +1,72 @@
+{
+  "videos": [
+    {
+      "id": 1,
+      "name": "Jellyfish-1",
+      "videoSrc": "../../../../assets/videos/video_1.mp4"
+    },
+    {
+      "id": 2,
+      "name": "video-2",
+      "videoSrc": "../../../../assets/videos/video_2.mp4"
+    },
+    {
+      "id": 3,
+      "name": "video-3",
+      "videoSrc": "../../../../assets/videos/video_3.mp4"
+    },
+    {
+      "id": 4,
+      "name": "video-4",
+      "videoSrc": "../../../../assets/videos/video_4.mp4"
+    },
+    {
+      "id": 5,
+      "name": "video-5",
+      "videoSrc": "../../../../assets/videos/video_5.mp4"
+    }
+  ],
+
+  "comments": [
+    {
+      "id": 1,
+      "arrayOfComments": [
+        {"text": "comment 1 for video 1"},
+        {"text": "comment 2 for video 1"},
+        {"text": "comment 3 for video 1"}
+      ]
+    },
+    {
+      "id": 2,
+      "arrayOfComments": [
+        {"text": "comment 1 for video 2"},
+        {"text": "comment 2 for video 2"},
+        {"text": "comment 3 for video 2"}
+      ]
+    },
+    {
+      "id": 3,
+      "arrayOfComments": [
+        {"text": "comment 1 for video 3"},
+        {"text": "comment 2 for video 3"},
+        {"text": "comment 3 for video 3"}
+      ]
+    },
+    {
+      "id": 4,
+      "arrayOfComments": [
+        {"text": "comment 1 for video 4"},
+        {"text": "comment 2 for video 4"},
+        {"text": "comment 3 for video 4"}
+      ]
+    },
+    {
+      "id": 5,
+      "arrayOfComments": [
+        {"text": "comment 1 for video 5"},
+        {"text": "comment 2 for video 5"},
+        {"text": "comment 3 for video 5"}
+      ]
+    }
+  ]
+}

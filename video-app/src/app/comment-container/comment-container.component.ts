@@ -1,6 +1,8 @@
-import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommentDirective } from '../comment.directive';
+import { CommentService } from '../comment.service';
+import { MyComment } from '../domain/myComment';
 import { MyCommentComponentInterface } from '../domain/myComment-component-interface';
 import { MyCommentItem } from '../domain/myComment-item';
 import { SomeCommentComponent } from '../some-comment/some-comment.component';
@@ -18,23 +20,72 @@ import { SomeCommentComponent } from '../some-comment/some-comment.component';
   ]
 })
 export class CommentContainerComponent implements OnInit, ControlValueAccessor {
-  @Input() comments: MyCommentItem[] = []
+  
+  comments: MyCommentItem[] = []
+
+  @Input() 
+  public videoId: number = 0
+
+  public buttonId: string = `button-${this.videoId}`
 
   @Input() 
   public textareaValue: string = ''
 
   @ViewChild(CommentDirective, {static: true}) commentHost!: CommentDirective
   
-  constructor() { }
+  constructor(public commentService: CommentService) { }
 
   public ngOnInit(): void {
+    
+    this.buttonId = `button-${this.videoId}`
 
-    this.loadAllComments()
+    this.commentService.getAllCommentsForVideo(this.videoId)
+
+    .then( (comments) => {
+
+      this.renderComments(comments.arrayOfComments)
+
+      const sendButton = document.getElementById(this.buttonId)
+
+      sendButton?.addEventListener('click', () => {
+        
+        if (this.textareaValue) {
+
+          this.renderComment({ text: this.textareaValue })
+
+          comments.arrayOfComments.push({ text: this.textareaValue })
+
+          this.commentService.updateComment(this.videoId, comments)
+
+          this.textareaValue = ''
+
+        } else { alert('comment is empty') }
+
+      })
+
+    })
+    .catch( (error) => {console.error(error)})
 
   }
+   
+  /**
+   * рендер всех переданных комментариев
+   * @param {MyComment[]} comments комментарии для рендеринга
+   */
+  public renderComments(comments: MyComment[]) {
+    
+    comments.forEach( (item, i, arr) => {
+      this.renderComment(item)
+    })
 
-  public loadCommentById(commentId: number): void {
-    const commentItem = this.comments[commentId]
+  }
+  /**
+   * рендер комментария
+   * @param {MyComment} comment 
+   */
+  public renderComment(comment: MyComment) {
+
+    const commentItem = new MyCommentItem(SomeCommentComponent, comment)
 
     const viewContainerRef = this.commentHost.viewContainerRef
 
@@ -45,13 +96,8 @@ export class CommentContainerComponent implements OnInit, ControlValueAccessor {
     componentRef.instance.data = commentItem.data
   }
 
-  public loadAllComments(): void {
-    for (let commentId = 0; commentId < this.comments.length; commentId++) {
-      this.loadCommentById(commentId)
-    }
-  }
-// --------------------------
-  // работаем с textarea
+
+  
   public onChange(comment: string): void {
   }
 
@@ -59,32 +105,19 @@ export class CommentContainerComponent implements OnInit, ControlValueAccessor {
 
   //можно не обновлять значение при каждом изменении, а обновлять только при отправке
   public onChangeTextareaValue(newValue: string): void {
+
     this.textareaValue = newValue
+
     this.onChange(newValue)
-    // console.log(this.textareaValue)
+
   }
 
   public registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn
-    
   }
   
   public registerOnTouched(fn: () => void): void {
     this.onTouch = fn
-  }
-  
-  public onClickSendButton(): void {
-    // можно поставить disable на кнопку
-    if (this.textareaValue === '') {
-      alert(`you can't leave an empty comment`)
-      return
-    }
-
-    this.addComment(this.textareaValue)
-
-    this.textareaValue = ''
-    //тут можно испооьзовать writeValue 
-    // this.writeValue('')
   }
   
   //но вообще этот метод не вызывается, потому что не пишем ничего отсюда в textarea
@@ -96,13 +129,6 @@ export class CommentContainerComponent implements OnInit, ControlValueAccessor {
     this.textareaValue = comment
   }
 
-  public addComment(newComment: string): void {
-
-    this.comments.push( new MyCommentItem(SomeCommentComponent, {
-      text: newComment
-    }))
-    
-    this.loadCommentById(this.comments.length - 1)
-  }
+  
 
 }

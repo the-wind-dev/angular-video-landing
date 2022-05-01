@@ -1,3 +1,3 @@
-export interface myComment{
+export interface MyComment{
     text: string
 }

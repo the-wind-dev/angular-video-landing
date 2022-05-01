@@ -15,7 +15,7 @@ import { VideoService } from "../video.service";
 
 export class VideoContainerComponent implements OnInit, OnDestroy {
 
-  @Input() videos: VideoItem[] = [];
+  videos: VideoItem[] = [];
 
   private currentVideoIndex: number = 1;
 
@@ -34,22 +34,10 @@ export class VideoContainerComponent implements OnInit, OnDestroy {
     this.videoService.getAllVideos()
     .then( (videos) => {
 
-      videos.forEach( (item, i, arr) => {
-
-        this.videos.push( new VideoItem(SomeVideoComponent, item) )
-
-      })
-
-      return videos
-
-    }).then( (videos) => {
-
       this.currentVideoIndex = 0
 
-      // мы полагаем, что изначально загружены не все видео
+      // предполагается, что изначально загружены не все видео
       this.primaryVideoRendering(this.minVideoHeight, videos)
-      
-      console.log('после предварительной загрузки будет видео ',this.currentVideoIndex)
     
       window.addEventListener('scroll',  () => this.onScrollToBottom(videos), {signal: this.controller.signal})
     
@@ -93,7 +81,6 @@ export class VideoContainerComponent implements OnInit, OnDestroy {
    * @param {Video} videoExample объект Video
    */
   public renderVideo(videoExample: Video) {
-    console.log('идет загрузка видео...')
 
     const videoItem = new VideoItem(SomeVideoComponent, videoExample)
 
@@ -134,17 +121,13 @@ export class VideoContainerComponent implements OnInit, OnDestroy {
 
     const needToLoad: number = Math.ceil(currentHeight / itemMinHeight) 
     
-    console.log('need to load', needToLoad)
 
     for (let i = 1; i <= needToLoad; i++) {
-
-      console.log('загружаю видео ', this.currentVideoIndex )
 
       this.renderVideo(videos[this.currentVideoIndex ])
 
       this.currentVideoIndex++
 
-      console.log('следующее видео будет ',this.currentVideoIndex)
     }
   }
 }

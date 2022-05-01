@@ -12,14 +12,8 @@ import { VideoComponentInterface } from '../domain/video-component-interface.com
 export class SomeVideoComponent implements VideoComponentInterface,  OnInit {
   @Input() data: any;
 
-  comments: MyCommentItem[] = []
-
-  @Input() 
-  public textareaValue: string = ''
-
-  constructor(private commentService: CommentService) { }
+  constructor() { }
 
   public ngOnInit(): void {
-    this.comments = this.commentService.getComments()
   }
 }

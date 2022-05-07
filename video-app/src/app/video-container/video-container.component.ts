@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { Component,  OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { Video } from "../domain/video";
 import { VideoComponentInterface } from "../domain/video-component-interface.component";
 import { VideoItem } from "../domain/video-item";
@@ -29,13 +29,12 @@ export class VideoContainerComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-  //  хорошо бы проверить, что вообще есть что загружать и сколько всего загружать
     
     this.videoService.getAllVideos()
     .then( (videos) => {
 
       this.currentVideoIndex = 0
-
+      
       // предполагается, что изначально загружены не все видео
       this.primaryVideoRendering(this.minVideoHeight, videos)
     
@@ -59,17 +58,17 @@ export class VideoContainerComponent implements OnInit, OnDestroy {
 
     if (currentPositionRelativBottom < currentHeight + 50) {
 
-      console.log('загружаю  видео', this.currentVideoIndex)
+      // console.log('загружаю  видео', this.currentVideoIndex)
 
       this.renderVideo(videos[this.currentVideoIndex])
       
-      console.log('видео', this.currentVideoIndex , ' загружено')
+      // console.log('видео', this.currentVideoIndex , ' загружено')
 
-      if (this.checkVideosFinished()) {
+      if (this.currentVideoIndex >= (videos.length - 1)) {
         
         this.controller.abort()
 
-        console.log('обработчик удален')
+        // console.log('обработчик удален')
       }
       
       this.currentVideoIndex++
@@ -105,6 +104,7 @@ export class VideoContainerComponent implements OnInit, OnDestroy {
   public checkVideosFinished(): boolean {
 
     if (this.currentVideoIndex >= (this.videos.length - 1)) {
+      
       return true  
     } else {
       return false

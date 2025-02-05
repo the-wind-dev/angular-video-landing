@@ -1,0 +1,14 @@
+<div class="comment-container-example">
+    <h3>Comments:</h3>
+
+    <ng-template commentHost></ng-template>
+
+    <textarea placeholder="leave a comment..."
+                  [ngModel]="textareaValue"
+                  (ngModelChange)="onChangeTextareaValue($event)">
+    </textarea>
+
+    <button class="button send-button"
+            [attr.id]="buttonId">
+        Send</button>
+</div>

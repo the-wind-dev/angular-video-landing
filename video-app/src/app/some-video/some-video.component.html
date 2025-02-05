@@ -1,0 +1,14 @@
+<div class="video-instance">
+
+    <h3>{{data.name}}</h3>
+    <div class="video-wrapper">
+        <video 
+            [attr.src]="data.videoSrc"
+            controls>
+        </video>
+    </div>
+    <div class="comment-container">
+        <app-comment-container [videoId]="data.id"></app-comment-container>  
+    </div>
+    
+</div>

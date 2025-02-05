@@ -1,0 +1,126 @@
+{
+  "videos": [
+    {
+      "id": 1,
+      "name": "Jellyfish",
+      "videoSrc": "../../../../assets/videos/video_1.mp4"
+    },
+    {
+      "id": 2,
+      "name": "Daffodils",
+      "videoSrc": "../../../../assets/videos/video_2.mp4"
+    },
+    {
+      "id": 3,
+      "name": "Аlowering field",
+      "videoSrc": "../../../../assets/videos/video_3.mp4"
+    },
+    {
+      "id": 4,
+      "name": "Lemons",
+      "videoSrc": "../../../../assets/videos/video_4.mp4"
+    },
+    {
+      "id": 5,
+      "name": "lotuses",
+      "videoSrc": "../../../../assets/videos/video_5.mp4"
+    },
+    {
+      "id": 6,
+      "name": "Sunrise",
+      "videoSrc": "../../../../assets/videos/video_6.mp4"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "arrayOfComments": [
+        {
+          "text": "comment 1 for video 1"
+        },
+        {
+          "text": "comment 2 for video 1"
+        },
+        {
+          "text": "comment 3 for video 1"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "arrayOfComments": [
+        {
+          "text": "comment 1 for video 2"
+        },
+        {
+          "text": "comment 2 for video 2"
+        },
+        {
+          "text": "comment 3 for video 2"
+        },
+        {
+          "text": "agsdhasdj"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "arrayOfComments": [
+        {
+          "text": "comment 1 for video 3"
+        },
+        {
+          "text": "comment 2 for video 3"
+        },
+        {
+          "text": "comment 3 for video 3"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "arrayOfComments": [
+        {
+          "text": "comment 1 for video 4"
+        },
+        {
+          "text": "comment 2 for video 4"
+        },
+        {
+          "text": "comment 3 for video 4"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "arrayOfComments": [
+        {
+          "text": "comment 1 for video 5"
+        },
+        {
+          "text": "comment 2 for video 5"
+        },
+        {
+          "text": "comment 3 for video 5"
+        },
+        {
+          "text": "comment 4\n"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "arrayOfComments": [
+        {
+          "text": "comment 1 for video 6"
+        },
+        {
+          "text": "comment 2 for video 6"
+        },
+        {
+          "text": "comment 3 for video 6"
+        }
+      ]
+    }
+  ]
+}
